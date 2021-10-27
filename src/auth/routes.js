@@ -28,7 +28,7 @@ authRouter.post('/signin', basicAuth, (req, res, next) => {
   res.status(200).json(user);
 });
 
-// authRouter.put('/signout', (req, res, next) => {
+// authRouter.put('/signout',  (req, res, next) => {
 //   let user = {
 //     user: req.user,
 //     token: null,

@@ -10,7 +10,7 @@ const userSchema = (sequelize, DataTypes) => {
     token: {
       type: DataTypes.VIRTUAL,
       get() {
-        return jwt.sign({ username: this.username }, process.env.SECRET);
+        return jwt.sign({ username: this.username }, process.env.SECRET, {expiresIn: '24h'});
       }
     }
   });
@@ -33,9 +33,6 @@ const userSchema = (sequelize, DataTypes) => {
     try {
       const parsedToken = jwt.verify(token, process.env.SECRET);
       const user = this.findOne({ where: { username: parsedToken.username } })
-      // if (parsedToken) {
-      //   atClaims['exp'] = time.Now().Add(time.Minute*15).Unix()
-      // };
       if (user) { return user; }
       
       throw new Error("User Not Found");
